@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import postRouter from "./routes/posts.routes.js";
+import userRouter from "./routes/users.routes.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.set("uri", process.env.ATLAS_URL);
 app.set("port", process.env.PORT || 9000);
 
 app.use(postRouter);
+app.use(userRouter);
 
 const start = async () => {
   const URI = app.get("uri");
