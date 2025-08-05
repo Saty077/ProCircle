@@ -60,3 +60,16 @@ export const login = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+export const uploadProfilePicture = async (req, res) => {
+  const { token, profilePicture } = req.body;
+  try {
+    const user = await User.findOne({ token: token });
+    if (!user) return res.status(404).json("user not found!");
+    user.profilePicture = profilePicture;
+    await user.save();
+    return res.status(200).json({ message: "profile picture uploaded" });
+  } catch (error) {
+    return res.status(500).json({ message: error });
+  }
+};
