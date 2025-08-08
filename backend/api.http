@@ -16,3 +16,11 @@ Content-Type: application/json
   "email": "first1@gmail.com",
   "password": "hello"
 }
+
+###
+GET http://localhost:9000/get_user_and_profile 
+Content-Type: application/json
+
+{
+  "token": "242aced528fe80bc598b4f1c8fd6d6701a7ef74ca8e40e761bccf36427499ad4"
+}
