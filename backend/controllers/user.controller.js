@@ -1,5 +1,5 @@
 import User from "../models/users.model.js";
-
+import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { stringify } from "querystring";
@@ -121,5 +121,39 @@ export const getUserAndProfile = async (req, res) => {
     return res
       .status(500)
       .json({ message: `something went wrong in getUserAndProfile ${e}` });
+  }
+};
+
+export const updateProfileData = async (req, res) => {
+  try {
+    const { token, ...profileData } = req.body;
+
+    const user = await User.findOne({ token: token });
+    if (!user) return res.status(404).json({ message: "user not found!" });
+    const userProfile = await Profile.findOne({ userId: user._id }); //
+
+    Object.assign(userProfile, profileData);
+    await userProfile.save();
+    return res.json("profile updated");
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `something went wrong in udateProfileData: ${error}` });
+  }
+};
+
+export const getAllUserProfile = async (req, res) => {
+  try {
+    const allProfiles = await Profile.find().populate(
+      "userId",
+      "name username email profilePicture"
+    );
+    if (!allProfiles.length) return res.status(404).json("no profile found!");
+
+    return res.json({ Profiles: allProfiles });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `something went wrong in getAllUserProfile: ${error}` });
   }
 };

@@ -2,9 +2,9 @@ POST http://localhost:9000/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "firstUser",
-  "username": "firstUser1",
-  "email": "first1@gmail.com",
+  "name": "Satyam kr Jha",
+  "username": "satyam121",
+  "email": "satyam01@gmail.com",
   "password": "hello"
 }
 
@@ -23,4 +23,31 @@ Content-Type: application/json
 
 {
   "token": "242aced528fe80bc598b4f1c8fd6d6701a7ef74ca8e40e761bccf36427499ad4"
+}
+
+###
+POST http://localhost:9000/update_profile_data
+Content-Type: application/json
+
+{
+  "token":"242aced528fe80bc598b4f1c8fd6d6701a7ef74ca8e40e761bccf36427499ad4",
+  "bio": "aspiring software engineer",
+  "pastWork": {
+    "company": "Salesforce",
+    "position": "salesforce developer intern",
+    "years": "des 2023-jan 2024"
+  },
+  "education": {
+   "school": "Darbhanga College of Engineering",
+   "degree": "B.tech",
+   "years": "4"
+  }
+}
+
+###
+GET http://localhost:9000/user/get_all_user
+Content-Type: application/json
+
+{
+  "username":"firstUser1"
 }
