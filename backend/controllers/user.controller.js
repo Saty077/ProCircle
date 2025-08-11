@@ -4,6 +4,36 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { stringify } from "querystring";
 import Profile from "../models/profile.model.js";
+import PDFDocument from "pdfkit";
+import fs from "fs";
+
+const convertUserDataToPDF = async (userData) => {
+  const doc = new PDFDocument();
+  console.log(userData.userId);
+  const outputPath = crypto.randomBytes(32).toString("hex") + ".pdf";
+  const stream = fs.createWriteStream("uploads/" + outputPath);
+  doc.pipe(stream);
+
+  doc.image(`uploads/${userData.userId.profilePicture}`, {
+    align: "center",
+    width: 100,
+  });
+  doc.fontSize(14).text(`Name: ${userData.userId.name}`);
+  doc.fontSize(14).text(`Email: ${userData.userId.email}`);
+  doc.fontSize(14).text(`Username: ${userData.userId.username}`);
+  doc.fontSize(14).text(`Bio: ${userData.bio}`);
+  doc.fontSize(14).text(`Current Post: ${userData.currentPost}`);
+  doc.fontSize(14).text("Past Work: ");
+  userData.pastWork.forEach((work, index) => {
+    doc.fontSize(14).text(`Company Name: ${work.company}`);
+    doc.fontSize(14).text(`Postion: ${work.position}`);
+    doc.fontSize(14).text(`Years: ${work.years}`);
+  });
+
+  doc.end();
+
+  return outputPath;
+};
 
 export const register = async (req, res) => {
   try {
@@ -156,4 +186,18 @@ export const getAllUserProfile = async (req, res) => {
       .status(500)
       .json({ message: `something went wrong in getAllUserProfile: ${error}` });
   }
+};
+
+export const downloadProfile = async (req, res) => {
+  console.log(req.query.id);
+  const user_id = req.query.id;
+  console.log(user_id);
+  const userProfile = await Profile.findOne({ userId: user_id }).populate(
+    "userId",
+    "name username email profilePicture"
+  );
+
+  let outputPath = await convertUserDataToPDF(userProfile);
+
+  return res.json({ message: outputPath });
 };

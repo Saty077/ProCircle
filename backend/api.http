@@ -32,6 +32,7 @@ Content-Type: application/json
 {
   "token":"242aced528fe80bc598b4f1c8fd6d6701a7ef74ca8e40e761bccf36427499ad4",
   "bio": "aspiring software engineer",
+  "currentPost":"CTO",
   "pastWork": {
     "company": "Salesforce",
     "position": "salesforce developer intern",

@@ -39,6 +39,10 @@ const ProfileSchema = mongoose.Schema({
     type: String,
     default: " ",
   },
+  currentPost: {
+    type: String,
+    default: " ",
+  },
   pastWork: {
     type: [workSchema],
     default: [],

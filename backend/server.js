@@ -11,11 +11,11 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-app.set("uri", process.env.ATLAS_URL);
-app.set("port", process.env.PORT || 9000);
-
 app.use(postRouter);
 app.use(userRouter);
+app.use(express.static("uploads"));
+app.set("uri", process.env.ATLAS_URL);
+app.set("port", process.env.PORT || 9000);
 
 const start = async () => {
   const URI = app.get("uri");
