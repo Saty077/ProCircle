@@ -6,6 +6,7 @@ import { stringify } from "querystring";
 import Profile from "../models/profile.model.js";
 import PDFDocument from "pdfkit";
 import fs from "fs";
+import ConnectionReq from "../models/connections.model.js";
 
 const convertUserDataToPDF = async (userData) => {
   const doc = new PDFDocument();
@@ -200,4 +201,109 @@ export const downloadProfile = async (req, res) => {
   let outputPath = await convertUserDataToPDF(userProfile);
 
   return res.json({ message: outputPath });
+};
+
+export const sendConnectionRequest = async (req, res) => {
+  const { token, connectionId } = req.body;
+
+  try {
+    const user = await User.findOne({ token: token });
+    if (!user) return res.status(404).json({ message: "user not found" });
+
+    const connectionUser = await User.findOne({ _id: connectionId });
+    if (!connectionUser)
+      return res.status(404).json({ message: "Connection User not found!" });
+
+    const existingRequest = await ConnectionReq.findOne({
+      userId: user._id,
+      connectionId: connectionId,
+    });
+    if (existingRequest)
+      return res
+        .status(400)
+        .json({ message: "Connection request already sent!" });
+
+    const Request = await ConnectionReq({
+      userId: user._id,
+      connectionId: connectionId,
+    });
+
+    await Request.save();
+
+    return res.json({ message: "connection request sent!" });
+  } catch (error) {
+    res.send(500).json({
+      message: `something went wrong in sendConnectionRequest: ${error}`,
+    });
+  }
+};
+
+export const getMyConnectionRequests = async (req, res) => {
+  const token = req.body;
+
+  try {
+    const user = await User.findOne({ token: token });
+    if (!user) return res.status(404).json({ message: "user not found!" });
+
+    const connectionRequestsSent = await ConnectionReq.find({
+      userId: user._id,
+    }).populate("connectionId", "name username email profilePicture");
+    return res.json(connectionRequestsSent); // returns list of ppl to whom i've sent connections.
+  } catch (error) {
+    res.status(500).json({
+      message: `something went wrong in getMyConnectionRequests: ${error}`,
+    });
+  }
+};
+
+export const whatAreMyConnections = async (req, res) => {
+  const { token } = req.body;
+
+  try {
+    const user = await User.findOne({ token: token });
+    if (!user) return res.status(404).jshon({ message: "user not found" });
+
+    // const myConnections = await ConnectionReq.find({
+    //   status_accepted: true,
+    // }).populate("connectionId", "name username email profilePicture");
+
+    // res.json(myConnections); //my solution, which could be correct.
+
+    const myConnections = await ConnectionReq.find({
+      connectionId: user._id,
+    }).populate("userId", "name username email profilePicture"); //people who have sent me req's
+
+    return res.json(myConnections);
+  } catch (error) {
+    return res.status(500).json({
+      message: `something went wrong in whatAreMyConnections: ${error}`,
+    });
+  }
+};
+
+export const acceptConnectionRequest = async (req, res) => {
+  const { token, connectionId, action_type } = req.body;
+  try {
+    const user = await User.findOne({ token });
+    if (!user) return res.status(404).json({ message: "user not found!" });
+
+    const connectionUser = await ConnectionReq.find({
+      _id: connectionId,
+    });
+    if (!connectionUser)
+      return res.status(404).json({ message: "connection user not found!" });
+
+    if (action_type === "accept") {
+      connectionUser.status_accepted = true;
+    } else {
+      connectionUser.status_accepted = false;
+    }
+
+    await connectionUser.save();
+    res.json({ message: "Request Updated" });
+  } catch (error) {
+    res.status(500).json({
+      message: `something went wrong in acceptConnectionRequest: ${error}`,
+    });
+  }
 };
