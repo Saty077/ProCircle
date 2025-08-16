@@ -1,3 +1,4 @@
+import Comment from "../models/comment.model.js";
 import Post from "../models/posts.model.js";
 import User from "../models/users.model.js";
 
@@ -28,17 +29,11 @@ export const createPost = async (req, res) => {
 };
 
 export const getAllPost = async (req, res) => {
-  // const { token } = req.body;
   try {
-    // const user = await User.findOne({ token: token });
-    // if (!user) return res.status(404).json("user not found!");
-
-    // const allPost = await Post.find({ userId: user._id });
-    // res.json(allPost);
-
-    const allPost = await Post.find()
-      .populate("userId", "")
-      .populate("userId", "name username email profilePicture");
+    const allPost = await Post.find().populate(
+      "userId",
+      "name username email profilePicture"
+    );
     res.json({ allPost });
   } catch (error) {
     res.status(500).json({
@@ -65,6 +60,89 @@ export const deletePost = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: `somthing went wrong in deletePost: ${error.message}`,
+    });
+  }
+};
+
+export const comment = async (req, res) => {
+  const { token, commentMsg, postId } = req.body;
+  try {
+    const user = await User.findOne({ token }).select("_id");
+    if (!user) return res.status(404).json("user not found!");
+
+    const TargetPost = await Post.findOne({ _id: postId });
+    if (!TargetPost) return res.status(404).json("post not found!");
+
+    const comment = new Comment({
+      userId: user._id,
+      postId: postId,
+      body: commentMsg,
+    });
+
+    await comment.save();
+    return res.status(200).json({ message: "comment added!" });
+  } catch (error) {
+    res.status(500).json({
+      message: `somthing went wrong in comment: ${error.message}`,
+    });
+  }
+};
+
+export const getCommentByPost = async (req, res) => {
+  const { post_id } = req.body;
+  try {
+    const post = await Post.findOne({ _id: post_id });
+    if (!post) return res.status(404).json("post not found!");
+
+    const comments = await Comment.find({ postId: post_id }).populate(
+      "userId",
+      "name username"
+    );
+    return res.json({ comments });
+  } catch (error) {
+    res.status(500).json({
+      message: `somthing went wrong in getCommentByPost: ${error.message}`,
+    });
+  }
+};
+
+export const deleteComment = async (req, res) => {
+  const { token, commentId } = req.body;
+  try {
+    const user = await User.findOne({ token }).select("_id");
+    if (!user) return res.status(404).json("user not found!");
+
+    const myComment = await Comment.findOne({ _id: commentId });
+    if (!myComment) return res.status(404).json("comment not found!");
+
+    if (myComment.userId.toString() !== user._id.toString())
+      return res.status(401).json({ message: "Unauthorized!" });
+
+    await myComment.deleteOne({ _id: commentId });
+    return res.status(200).json({ message: "comment deleted" });
+  } catch (error) {
+    res.status(500).json({
+      message: `somthing went wrong in getCommentByPost: ${error.message}`,
+    });
+  }
+};
+
+export const increamentLikes = async (req, res) => {
+  const { postId } = req.body;
+  try {
+    const targetPost = await Post.findOne({ _id: postId });
+    if (!targetPost)
+      return res.status(404).json({ message: "post not found!" });
+
+    // await targetPost.updateOne({ likes: likes + 1 }); // not efficent
+    // await targetPost.updateOne({ $inc: { likes: 1 } }); //might be better,not tried
+
+    targetPost.likes = targetPost.likes + 1;
+    await targetPost.save();
+    res.json({ message: "like incremented" });
+  } catch (error) {
+    res.status(500).json({
+      message: `somthing went wrong in getCommentByPost: ${error.message}`,
     });
   }
 };
