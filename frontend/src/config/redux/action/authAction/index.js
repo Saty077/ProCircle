@@ -1,0 +1,50 @@
+import { createServer } from "@/config";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
+export const loginUser = createAsyncThunk(
+  "user/login",
+  async (user, thunkAPI) => {
+    try {
+      const response = await createServer.post("/login", {
+        email: user.email,
+        password: user.password,
+      });
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+      } else {
+        return thunkAPI.rejectWithValue({
+          message: "token not provided",
+        });
+      }
+
+      return thunkAPI.fulfillWithValue(response.data.token);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const registerUser = createAsyncThunk(
+  "user/register",
+  async (user, thunkAPI) => {
+    try {
+      const response = await createAsyncThunk.post("/register", {
+        name: user.name,
+        email: user.email,
+        username: user.username,
+        password: user.password,
+      });
+
+      if (response.status(200)) {
+        return response.data.message;
+      } else {
+        return thunkAPI.rejectWithValue(response.data.message);
+      }
+
+      return thunkAPI.fulfillWithValue(response.data.message);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
