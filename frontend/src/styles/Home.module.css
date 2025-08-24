@@ -2,3 +2,66 @@
   font-family: "poppins";
   padding: 1.2rem;
 }
+
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  padding-inline: 2rem;
+  height: 80vh;
+}
+
+.mainContainer_left {
+  flex: 0.5;
+}
+
+.mainContainer_right {
+  flex: 0.5;
+}
+.mainContainer_left > p:nth-child(1) {
+  font-size: 2.9rem;
+  background: linear-gradient(70deg, #131010 25%, #4d4d4d 50%, #9d9d9d 75%);
+  background-clip: text;
+  background-size: 200% 100%;
+
+  animation: shimmer 3.5s linear infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+    background-clip: text;
+  }
+  100% {
+    background-position: -200% 0;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.mainContainer_left > p:nth-child(2) {
+  font-size: 1.6rem;
+  color: #4d4d4d;
+}
+
+.mainContainer_left > div.buttonJoin {
+  background-color: rgb(35, 133, 101);
+  width: fit-content;
+  font-size: 1.3rem;
+  padding-block: 0.6rem;
+  padding-inline: 1.2rem;
+  border-radius: 20px;
+  margin-top: 0.8rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s;
+  color: white;
+}
+
+.mainContainer_right img {
+  width: fit-content;
+  height: 60vh;
+  padding: 1rem;
+  margin-left: 5rem;
+}
