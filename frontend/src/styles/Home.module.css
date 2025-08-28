@@ -46,7 +46,7 @@
 }
 
 .mainContainer_left > div.buttonJoin {
-  background-color: rgb(35, 133, 101);
+  background-color: rgba(22, 73, 114, 0.76);
   width: fit-content;
   font-size: 1.3rem;
   padding-block: 0.6rem;
