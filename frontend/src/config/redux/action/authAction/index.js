@@ -29,20 +29,18 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async (user, thunkAPI) => {
     try {
-      const response = await createAsyncThunk.post("/register", {
+      const request = await createServer.post("/register", {
         name: user.name,
-        email: user.email,
         username: user.username,
+        email: user.email,
         password: user.password,
       });
 
-      if (response.status(200)) {
-        return response.data.message;
-      } else {
-        return thunkAPI.rejectWithValue(response.data.message);
-      }
-
-      return thunkAPI.fulfillWithValue(response.data.message);
+      // if (response.status(200)) {
+      //   return response.data.message;
+      // } else {
+      //   return thunkAPI.rejectWithValue(response.data.message);
+      // }
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }

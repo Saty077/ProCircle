@@ -39,6 +39,7 @@ const convertUserDataToPDF = async (userData) => {
 export const register = async (req, res) => {
   try {
     console.log(req.body);
+    console.log("entered Register action");
     const { name, username, email, password } = req.body;
 
     if (!name || !username || !email || !password)
@@ -46,7 +47,7 @@ export const register = async (req, res) => {
 
     const user = await User.findOne({ email });
 
-    if (user) return res.status(400).json({ messaage: "user already exist!" });
+    if (user) return res.status(400).json({ message: "user already exist!" });
     const hashedPassword = await bcrypt.hash(password, 10);
 
     let newUser = new User({
