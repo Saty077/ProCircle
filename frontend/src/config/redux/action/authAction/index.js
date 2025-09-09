@@ -51,12 +51,24 @@ export const aboutUserData = createAsyncThunk(
   "user/aboutUserData",
   async (user, ThunkAPI) => {
     try {
-      const responce = await createServer("/get_user_and_profile", {
+      const response = await createServer("/get_user_and_profile", {
         params: {
           token: user.token,
         },
       });
-      return ThunkAPI.fulfillWithValue(responce.data);
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getAllUsers = createAsyncThunk(
+  "user/getAllUsers",
+  async (_, ThunkAPI) => {
+    try {
+      const response = await createServer("/user/get_all_user");
+      return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error.message);
     }
