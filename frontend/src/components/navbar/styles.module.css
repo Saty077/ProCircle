@@ -25,3 +25,8 @@
   transition: all 0.2s;
   color: white;
 }
+
+.dashboard_rightNav {
+  display: flex;
+  gap: 1.2rem;
+}

@@ -46,3 +46,19 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+export const aboutUserData = createAsyncThunk(
+  "user/aboutUserData",
+  async (user, ThunkAPI) => {
+    try {
+      const responce = await createServer("/get_user_and_profile", {
+        params: {
+          token: user.token,
+        },
+      });
+      return ThunkAPI.fulfillWithValue(responce.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.message);
+    }
+  }
+);

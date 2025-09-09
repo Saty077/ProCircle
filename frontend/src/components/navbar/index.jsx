@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./styles.module.css";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 function NavBarComponent() {
   const router = useRouter();
+  const authState = useSelector((state) => state.auth);
 
   return (
     <div className={styles.container}>
@@ -17,14 +19,24 @@ function NavBarComponent() {
           Pro Hive
         </h2>
         <div className={styles.navbarOption}></div>
-        <div
-          onClick={() => {
-            router.push("/login");
-          }}
-          className={styles.loginBtn}
-        >
-          Login
-        </div>
+        {authState.profileFetched && (
+          <div className={styles.dashboard_rightNav}>
+            <p>{authState.user.userId.name}</p>
+            <p style={{ fontWeight: "bold" }}>Profile</p>
+          </div>
+        )}
+        {!authState.profileFetched ? (
+          <div
+            onClick={() => {
+              router.push("/login");
+            }}
+            className={styles.loginBtn}
+          >
+            Login
+          </div>
+        ) : (
+          <></>
+        )}
       </nav>
     </div>
   );
