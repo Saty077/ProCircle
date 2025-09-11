@@ -32,6 +32,7 @@
 
 .sidebarOptions > svg {
   max-height: 1.4em;
+  min-width: fit-content;
   gap: 1.2em;
 }
 

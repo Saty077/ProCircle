@@ -1,0 +1,57 @@
+.scrollComponent {
+  display: flex;
+  justify-content: center;
+}
+
+.postContainer {
+  display: flex;
+  height: 10svh;
+  width: 70%;
+  position: relative;
+  padding-inline: 0.8rem;
+  gap: 1.3rem;
+  align-items: center;
+  background-color: rgba(8, 96, 123, 0.421);
+  border-radius: 20px;
+}
+
+.buttonContent {
+  position: absolute;
+  right: 0;
+  background-color: rgb(11, 116, 148);
+  padding-inline: 1.2rem;
+  padding-block: 0.5rem;
+  border-radius: 30px;
+  color: white;
+  bottom: -40px;
+}
+
+.textareaContent {
+  width: 80%;
+  height: 80%;
+  outline: none;
+  border: 1px solid silver;
+  border-radius: 10px;
+  padding-inline: 1.5rem;
+  padding-block: 0.8rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.userProfile {
+  width: fit-content;
+  height: 60%;
+}
+
+.fab {
+  background-color: rgba(8, 96, 123, 0.726);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  /* margin-left: 2rem; */
+}
+
+.fab > svg {
+  width: fit-content;
+  height: 40px;
+  color: white;
+}
