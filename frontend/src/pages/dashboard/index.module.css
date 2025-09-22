@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-.postContainer {
+.createPostContainer {
   display: flex;
   height: 10svh;
   width: 70%;
@@ -15,6 +15,15 @@
   border-radius: 20px;
 }
 
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 80%;
+}
+
 .buttonContent {
   position: absolute;
   right: 0;
@@ -24,6 +33,7 @@
   border-radius: 30px;
   color: white;
   bottom: -40px;
+  cursor: pointer;
 }
 
 .textareaContent {
@@ -54,4 +64,71 @@
   width: fit-content;
   height: 40px;
   color: white;
+}
+/* 
+.postsContainer {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+  width: fit-content;
+  background-color: rgb(132, 167, 198);
+  padding-block: 5rem;
+  padding-inline: 5rem;
+  flex-direction: column;
+}
+.postContainer {
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+  width: fit-content;
+  background-color: rgb(132, 167, 198);
+  padding-block: 5rem;
+  padding-inline: 5rem;
+  flex-direction: column;
+}
+
+.postHeader {
+  height: 80%;
+  width: 80%;
+  background-color: green;
+}
+
+.postMedia {
+  height: 50%;
+  width: 50%;
+  padding: 1.5rem;
+} */
+
+.singleCard {
+  width: 100%;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid black;
+}
+
+.singleCard_profileContainer {
+  display: flex;
+
+  align-items: flex-start;
+  gap: 1.2rem;
+  padding: 1.2rem;
+  padding-right: 3.4rem;
+}
+
+.singleCard_profileContainer > img {
+  width: 10%;
+  border-radius: 50%;
+}
+
+.singleCard_image {
+  width: 100%;
+  height: fit-content;
+  padding-top: 0.6rem;
+  overflow: hidden;
+}
+
+.singleCard_image > img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
 }
