@@ -58,3 +58,18 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+
+export const incLikes = createAsyncThunk(
+  "post/like",
+  async (post, ThunkAPI) => {
+    try {
+      const response = await createServer.post("/increment_likes", {
+        post_id: post.post_id,
+      });
+
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);

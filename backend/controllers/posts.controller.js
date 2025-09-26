@@ -128,9 +128,9 @@ export const deleteComment = async (req, res) => {
 };
 
 export const increamentLikes = async (req, res) => {
-  const { postId } = req.body;
+  const { post_id } = req.body;
   try {
-    const targetPost = await Post.findOne({ _id: postId });
+    const targetPost = await Post.findOne({ _id: post_id });
     if (!targetPost)
       return res.status(404).json({ message: "post not found!" });
 

@@ -132,3 +132,24 @@
   object-fit: cover;
   border-radius: 20px;
 }
+
+.optionsContainer {
+  display: flex;
+  height: 20%;
+  width: 100%;
+  justify-content: space-evenly;
+  padding-block: 0.8rem;
+}
+
+.singleOption_optionsContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.singleOption_optionsContainer > svg {
+  height: 100%;
+  width: 10%;
+}
