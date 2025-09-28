@@ -73,3 +73,23 @@ export const incLikes = createAsyncThunk(
     }
   }
 );
+
+export const getAllComments = createAsyncThunk(
+  "post/getAllComments",
+  async (post, ThunkAPI) => {
+    try {
+      const response = await createServer.get("/get_commet_by_post", {
+        params: {
+          post_id: post.post_id,
+        },
+      });
+
+      return ThunkAPI.fulfillWithValue({
+        comments: response.data,
+        post_id: post.post_id,
+      });
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
