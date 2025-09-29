@@ -94,11 +94,11 @@ export const getCommentByPost = async (req, res) => {
     const post = await Post.findOne({ _id: post_id });
     if (!post) return res.status(404).json("post not found!");
 
-    // const comments = await Comment.find({ postId: post_id }).populate(
-    //   "userId",
-    //   "name username"
-    // );
-    return res.json({ comments: post.comments });
+    const comments = await Comment.find({ postId: post_id }).populate(
+      "userId",
+      "name username"
+    );
+    return res.json(comments.reverse());
   } catch (error) {
     res.status(500).json({
       message: `somthing went wrong in getCommentByPost: ${error.message}`,

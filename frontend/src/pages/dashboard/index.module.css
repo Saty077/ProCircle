@@ -173,6 +173,49 @@
   width: 40vw;
   height: 80vh;
   border-radius: 10px;
-  /* position: relative; */
+  position: relative;
   padding: 1.4rem;
 }
+
+.postCommentContainer {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+}
+
+.postCommentContainer > input {
+  flex: 0.9;
+  padding-inline: 1.5rem;
+  padding-block: 1.2rem;
+  border: none;
+  outline: none;
+  background-color: rgba(219, 219, 219, 0.86);
+  border-radius: 10px;
+}
+
+.postCommentContainer > input:focus {
+  border: 1px solid silver;
+}
+
+.postCommentContainer_commentBtn {
+  flex: 0.1;
+  padding: 1rem;
+  cursor: pointer;
+  background-color: orange;
+  text-align: center;
+  width: fit-content;
+  border-radius: 10px;
+  color: white;
+}
+
+/* .commentsDashboard {
+  height: 100%;
+  width: 100%;
+  background-color: green;
+  color: white;
+} */

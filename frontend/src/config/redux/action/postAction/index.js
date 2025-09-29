@@ -83,11 +83,30 @@ export const getAllComments = createAsyncThunk(
           post_id: post.post_id,
         },
       });
+      console.log("data is:", response.data);
 
       return ThunkAPI.fulfillWithValue({
         comments: response.data,
         post_id: post.post_id,
       });
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const postComment = createAsyncThunk(
+  "post/postComment",
+  async (postData, ThunkAPI) => {
+    try {
+      console.log(`hi post: ${postData.post_id}`);
+      const response = createServer.post("/add_commet", {
+        token: localStorage.getItem("token"),
+        commentMsg: postData.body,
+        postId: postData.post_id,
+      });
+
+      return ThunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return ThunkAPI.rejectWithValue(error.response.data);
     }
