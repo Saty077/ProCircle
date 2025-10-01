@@ -11,6 +11,7 @@ import {
   updateProfileData,
   updateUserProfile,
   uploadProfilePicture,
+  viewUserProfile,
   whatAreMyConnections,
 } from "../controllers/user.controller.js";
 import multer from "multer";
@@ -42,5 +43,6 @@ router.route("/user/send_connection_request").post(sendConnectionRequest);
 router.route("/user/get_connection_request").get(getMyConnectionRequests);
 router.route("/user/user_connection_request").get(whatAreMyConnections);
 router.route("/user/accept_connection_request").post(acceptConnectionRequest);
+router.route("/user/view_profile").get(viewUserProfile);
 
 export default router;

@@ -308,3 +308,24 @@ export const acceptConnectionRequest = async (req, res) => {
     });
   }
 };
+
+export const viewUserProfile = async (req, res) => {
+  const { username } = req.query;
+  try {
+    const targetUser = await User.findOne({ username });
+    if (!targetUser) {
+      return res.status(404).json({ message: "target User not found!" });
+    }
+    const targetUserProfile = await Profile.findOne({
+      userId: targetUser._id,
+    }).populate("userId", "name username email profilePicture");
+    if (!targetUserProfile) {
+      return res.status(404).json({ message: "target Profile not found!" });
+    }
+    res.status(200).json({ targetProfile: targetUserProfile });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: `something went worong in viewUserProfile` });
+  }
+};
