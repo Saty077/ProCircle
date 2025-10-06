@@ -75,3 +75,72 @@ export const getAllUsers = createAsyncThunk(
     }
   }
 );
+
+export const sendConnectionRequest = createAsyncThunk(
+  "user/sendConnectionRequest",
+  async (connectionData, ThunkAPI) => {
+    try {
+      const request = await createServer.post("/user/send_connection_request", {
+        token: connectionData.token,
+        connectionId: connectionData.username,
+      });
+
+      ThunkAPI.dispatch(getConnectionRequest({ token: connectionData.token }));
+      return ThunkAPI.fulfillWithValue(request.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const getConnectionRequest = createAsyncThunk(
+  "user/getConnectionRequest",
+  async (userData, ThunkAPI) => {
+    try {
+      console.log("in getConnection");
+      const response = await createServer.get("/user/get_connection_request", {
+        params: {
+          token: userData.token,
+        },
+      });
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const getMyConnections = createAsyncThunk(
+  "user/getMyConnection",
+  async (userData, ThunkAPI) => {
+    try {
+      const response = await createServer.get("/user/user_connection_request", {
+        params: {
+          token: userData.token,
+        },
+      });
+      return ThunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const acceptConnectionRequest = createAsyncThunk(
+  "user/acceptConnectionRequest",
+  async (connectionReqResponseSender, ThunkAPI) => {
+    try {
+      const request = await createServer.post(
+        "/user/accept_connection_request",
+        {
+          token: connectionReqResponseSender.token,
+          connectionId: connectionReqResponseSender.username,
+          action_type: connectionReqResponseSender.action_status,
+        }
+      );
+      return ThunkAPI.fulfillWithValue(request.data);
+    } catch (error) {
+      return ThunkAPI.rejectWithValue(error.response.data.message);
+    }
+  }
+);

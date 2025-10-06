@@ -15,6 +15,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 1.2rem;
+  border-right: 1px solid rgb(222, 222, 222);
 }
 
 .sidebarOptions {
@@ -38,4 +39,13 @@
 
 .sidebarOptions:hover {
   transform: scale(1.01);
+}
+
+.homeContainer_extraContainer {
+  border-left: 1px solid rgb(222, 222, 222);
+  padding-left: 1.3rem;
+}
+
+.homeContainer_feedContainer {
+  padding-inline: 0.8rem;
 }

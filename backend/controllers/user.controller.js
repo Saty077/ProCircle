@@ -206,18 +206,19 @@ export const downloadProfile = async (req, res) => {
 
 export const sendConnectionRequest = async (req, res) => {
   const { token, connectionId } = req.body;
-
+  console.log("token is :", token);
   try {
     const user = await User.findOne({ token: token });
+
     if (!user) return res.status(404).json({ message: "user not found" });
 
-    const connectionUser = await User.findOne({ _id: connectionId });
+    const connectionUser = await User.findOne({ username: connectionId });
     if (!connectionUser)
       return res.status(404).json({ message: "Connection User not found!" });
 
     const existingRequest = await ConnectionReq.findOne({
       userId: user._id,
-      connectionId: connectionId,
+      connectionId: connectionUser._id,
     });
     if (existingRequest)
       return res
@@ -226,21 +227,21 @@ export const sendConnectionRequest = async (req, res) => {
 
     const Request = await ConnectionReq({
       userId: user._id,
-      connectionId: connectionId,
+      connectionId: connectionUser._id,
     });
 
     await Request.save();
 
     return res.json({ message: "connection request sent!" });
   } catch (error) {
-    res.send(500).json({
+    res.status(500).json({
       message: `something went wrong in sendConnectionRequest: ${error}`,
     });
   }
 };
 
 export const getMyConnectionRequests = async (req, res) => {
-  const token = req.body;
+  const { token } = req.query;
 
   try {
     const user = await User.findOne({ token: token });
