@@ -1,6 +1,9 @@
 .container {
   background: rgb(237, 236, 236);
-  padding: 0.8rem;
+  padding: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
 }
 
 .backdropContainer {
@@ -79,5 +82,27 @@
   padding-inline: 0.8rem;
   padding-block: 0.3rem;
   cursor: pointer;
+  border: 0.8px solid rgb(100, 179, 228);
   border-radius: 10px;
+}
+
+.workHistory_container {
+  display: "flex";
+  gap: 1.4rem;
+  padding-top: 1.4rem;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.workHistory_card {
+  min-width: fit-content;
+  padding-inline: 2.5rem;
+  padding-block: 1rem;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgb(71, 71, 71);
+}
+
+.downloadProfile {
+  width: 1.3em;
+  cursor: pointer;
 }

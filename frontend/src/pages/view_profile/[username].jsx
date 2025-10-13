@@ -45,7 +45,14 @@ export default function ViewProfilePage({ targetUser }) {
         (user) => user.connectionId._id === targetUser.userId._id
       )
     ) {
-      return setIsCurrentUserInConnection(true);
+      setIsCurrentUserInConnection(true);
+      if (
+        authState.connections.some(
+          (user) => user.connectionId._id === targetUser.userId._id
+        ).status_accepted === "true"
+      ) {
+        isConnectionNull(false);
+      }
     }
   }, [authState.connections]);
 
@@ -73,25 +80,60 @@ export default function ViewProfilePage({ targetUser }) {
                   <p style={{ color: "gray" }}>@{targetUser.userId.username}</p>
                 </div>
 
-                {isCurrentUserInConnection ? (
-                  <button className={Styles.connectedBtn}>
-                    {isConnectionNull ? <p>Pending</p> : <p>Connected</p>}
-                  </button>
-                ) : (
-                  <button
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "1.2rem",
+                    alignItems: "center",
+                  }}
+                >
+                  {isCurrentUserInConnection ? (
+                    <button className={Styles.connectedBtn}>
+                      {isConnectionNull ? <p>Pending</p> : <p>Connected</p>}
+                    </button>
+                  ) : (
+                    <button
+                      onClick={async () => {
+                        dispatch(
+                          sendConnectionRequest({
+                            token: localStorage.getItem("token"),
+                            username: targetUser.userId.username,
+                          })
+                        ); //todo
+                      }}
+                      className={Styles.connectBtn}
+                    >
+                      Connect
+                    </button>
+                  )}
+                  <div
                     onClick={async () => {
-                      dispatch(
-                        sendConnectionRequest({
-                          token: localStorage.getItem("token"),
-                          username: targetUser.userId.username,
-                        })
-                      ); //todo
+                      const response = await createServer.get(
+                        `/user/download_resume?id=${targetUser.userId._id}`
+                      );
+                      window.open(
+                        `${BASE_URL}/${response.data.message}`,
+                        "_blank"
+                      );
                     }}
-                    className={Styles.connectBtn}
+                    className={Styles.downloadProfile}
                   >
-                    Connect
-                  </button>
-                )}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-6"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                      />
+                    </svg>
+                  </div>
+                </div>
 
                 <div className={Styles.profileBio}>{targetUser.bio}</div>
               </div>
@@ -116,6 +158,29 @@ export default function ViewProfilePage({ targetUser }) {
                   );
                 })}
               </div>
+            </div>
+          </div>
+
+          <div className={Styles.workHistory}>
+            <h4>Work History</h4>
+            <div className={Styles.workHistory_container}>
+              {targetUser.pastWork.map((work) => {
+                return (
+                  <div className={Styles.workHistory_card}>
+                    <p
+                      style={{
+                        fontWeight: "bold",
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.8rem",
+                      }}
+                    >
+                      {work.company} - {work.position}
+                    </p>
+                    <p>{work.years}</p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
