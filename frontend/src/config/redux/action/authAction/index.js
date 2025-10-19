@@ -134,9 +134,15 @@ export const acceptConnectionRequest = createAsyncThunk(
         "/user/accept_connection_request",
         {
           token: connectionReqResponseSender.token,
-          connectionId: connectionReqResponseSender.username,
-          action_type: connectionReqResponseSender.action_status,
+          connectionId: connectionReqResponseSender.connectionId,
+          action_type: connectionReqResponseSender.action_type,
         }
+      );
+      ThunkAPI.dispatch(
+        getConnectionRequest({ token: connectionReqResponseSender.token })
+      );
+      ThunkAPI.dispatch(
+        getMyConnections({ token: connectionReqResponseSender.token })
       );
       return ThunkAPI.fulfillWithValue(request.data);
     } catch (error) {

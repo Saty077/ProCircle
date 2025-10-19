@@ -259,7 +259,7 @@ export const getMyConnectionRequests = async (req, res) => {
 };
 
 export const whatAreMyConnections = async (req, res) => {
-  const { token } = req.body;
+  const { token } = req.query;
 
   try {
     const user = await User.findOne({ token: token });
@@ -269,7 +269,7 @@ export const whatAreMyConnections = async (req, res) => {
     //   status_accepted: true,
     // }).populate("connectionId", "name username email profilePicture");
 
-    // res.json(myConnections); //my solution, which could be correct.
+    // res.json(myConnections); //msolution, which could be correct.
 
     const myConnections = await ConnectionReq.find({
       connectionId: user._id,
@@ -289,7 +289,7 @@ export const acceptConnectionRequest = async (req, res) => {
     const user = await User.findOne({ token });
     if (!user) return res.status(404).json({ message: "user not found!" });
 
-    const connectionUser = await ConnectionReq.find({
+    const connectionUser = await ConnectionReq.findOne({
       _id: connectionId,
     });
     if (!connectionUser)
@@ -302,6 +302,7 @@ export const acceptConnectionRequest = async (req, res) => {
     }
 
     await connectionUser.save();
+
     res.json({ message: "Request Updated" });
   } catch (error) {
     res.status(500).json({

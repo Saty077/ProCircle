@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { allPosts } from "@/config/redux/action/postAction";
 import {
   getConnectionRequest,
+  getMyConnections,
   sendConnectionRequest,
 } from "@/config/redux/action/authAction";
 
@@ -29,6 +30,7 @@ export default function ViewProfilePage({ targetUser }) {
     await dispatch(
       getConnectionRequest({ token: localStorage.getItem("token") })
     ); //todo
+    await dispatch(getMyConnections({ token: localStorage.getItem("token") }));
   };
 
   useEffect(() => {
@@ -47,14 +49,28 @@ export default function ViewProfilePage({ targetUser }) {
     ) {
       setIsCurrentUserInConnection(true);
       if (
-        authState.connections.some(
+        authState.connections.find(
           (user) => user.connectionId._id === targetUser.userId._id
-        ).status_accepted === "true"
+        ).status_accepted === true
       ) {
-        isConnectionNull(false);
+        setIsConnectionNull(false);
       }
     }
-  }, [authState.connections]);
+    if (
+      authState.connectionRequest.some(
+        (user) => user.userId._id === targetUser.userId._id
+      )
+    ) {
+      setIsCurrentUserInConnection(true);
+      if (
+        authState.connectionRequest.find(
+          (user) => user.userId._id === targetUser.userId._id
+        ).status_accepted === true
+      ) {
+        setIsConnectionNull(false);
+      }
+    }
+  }, [authState.connections, authState.connectionRequest]);
 
   useEffect(() => {
     getUserPost();
