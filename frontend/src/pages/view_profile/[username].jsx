@@ -185,15 +185,38 @@ export default function ViewProfilePage({ targetUser }) {
                   <div className={Styles.workHistory_card}>
                     <p
                       style={{
-                        fontWeight: "bold",
                         display: "flex",
                         alignItems: "center",
                         gap: "0.8rem",
                       }}
                     >
-                      {work.company} - {work.position}
+                      <span style={{ fontWeight: "bold" }}>Company:</span>{" "}
+                      <span>{work.company}</span>
                     </p>
-                    <p>{work.years}</p>
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.8rem",
+                      }}
+                    >
+                      <span style={{ fontWeight: "bold", marginRight: "10px" }}>
+                        Position:{" "}
+                      </span>{" "}
+                      <span>{work.position}</span>
+                    </p>
+                    <p
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "0.8rem",
+                      }}
+                    >
+                      <span style={{ fontWeight: "bold", marginRight: "30px" }}>
+                        Years:{" "}
+                      </span>{" "}
+                      <span>{work.years}</span>
+                    </p>
                   </div>
                 );
               })}

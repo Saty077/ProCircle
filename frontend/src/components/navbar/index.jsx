@@ -18,13 +18,20 @@ function NavBarComponent() {
             router.push("/");
           }}
         >
-          Pro Hive
+          ProCircle
         </h2>
         <div className={styles.navbarOption}></div>
         {authState.profileFetched && (
           <div className={styles.dashboard_rightNav}>
             <p>{authState.user.userId.name}</p>
-            <p style={{ fontWeight: "bold", cursor: "pointer" }}>Profile</p>
+            <p
+              onClick={() => {
+                router.push("/profile");
+              }}
+              style={{ fontWeight: "bold", cursor: "pointer" }}
+            >
+              Profile
+            </p>
             <p
               onClick={() => {
                 localStorage.removeItem("token");
