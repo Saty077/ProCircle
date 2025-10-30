@@ -9,6 +9,7 @@
   justify-content: center;
   gap: 4rem;
   padding-inline: 2rem;
+  padding-block: 0.8rem;
   height: 80vh;
 }
 
@@ -64,4 +65,43 @@
   height: 60vh;
   padding: 1rem;
   margin-left: 5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  .mainContainer {
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 25rem;
+  }
+  .mainContainer_left {
+    flex: 1;
+    margin-right: 4rem;
+    width: 100%;
+    gap: 1.2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mainContainer_left p {
+    width: 30rem;
+  }
+
+  .mainContainer_left > div.buttonJoin {
+    padding-inline: 1rem;
+    padding-block: 1rem;
+
+    font-size: 2rem;
+  }
+
+  .mainContainer_right img {
+    flex: 1;
+    display: block;
+    padding-top: 1.7rem;
+    align-items: center;
+    margin-left: 14rem;
+  }
+  .mainContainer {
+    flex: 1;
+    width: 100%;
+  }
 }

@@ -123,7 +123,14 @@ export default function ProfilePage() {
                         });
                       }}
                     />
-                    <p contentEditable style={{ color: "gray" }}>
+                    <p
+                      contentEditable
+                      style={{
+                        color: "gray",
+                        display: "flex",
+                        flexDirection: "column",
+                      }}
+                    >
                       @{userProfile.userId.username}
                     </p>
                   </div>

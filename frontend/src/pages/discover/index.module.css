@@ -1,7 +1,7 @@
 .allUserProfile {
   display: flex;
   flex-direction: column;
-  max-width: 89%;
+  max-width: 100%;
   align-items: center;
   gap: 1.2rem;
 }
@@ -13,9 +13,34 @@
   align-items: center;
   box-shadow: 10px 50px 50px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .userCard > img {
   width: 10%;
   border-radius: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .allUserProfile {
+    /* padding: 3.5rem; */
+  }
+
+  .userCard > img {
+    width: 20%;
+    border-radius: 50%;
+  }
+
+  .userCard {
+    display: flex;
+    gap: 1.2rem;
+    padding: -2.3rem;
+    align-items: center;
+    box-shadow: 10px 50px 50px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .allUserProfile {
+    padding: -2.5rem;
+  }
 }

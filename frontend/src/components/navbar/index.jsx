@@ -12,50 +12,60 @@ function NavBarComponent() {
   return (
     <div className={styles.container}>
       <nav className={styles.navbar}>
-        <h2
-          style={{ cursor: "pointer" }}
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          ProCircle
-        </h2>
-        <div className={styles.navbarOption}></div>
-        {authState.profileFetched && (
-          <div className={styles.dashboard_rightNav}>
-            <p>{authState.user.userId.name}</p>
-            <p
-              onClick={() => {
-                router.push("/profile");
-              }}
-              style={{ fontWeight: "bold", cursor: "pointer" }}
-            >
-              Profile
-            </p>
-            <p
-              onClick={() => {
-                localStorage.removeItem("token");
-                router.push("/login");
-                dispatch(reset());
-              }}
-              style={{ fontWeight: "bold", cursor: "pointer" }}
-            >
-              Logout
-            </p>
-          </div>
-        )}
-        {!authState.profileFetched ? (
-          <div
+        <div>
+          <h2
+            style={{ cursor: "pointer" }}
             onClick={() => {
-              router.push("/login");
+              router.push("/");
             }}
-            className={styles.loginBtn}
           >
-            Login
-          </div>
-        ) : (
-          <></>
-        )}
+            ProCircle
+          </h2>
+        </div>
+        <div className={styles.navbarOption}>
+          {authState.profileFetched && (
+            <div className={styles.dashboard_rightNav}>
+              <p
+                onClick={() => {
+                  router.push("/profile");
+                }}
+                className={styles.usernameNav}
+              >
+                {authState.user.userId.name}
+              </p>
+              <p
+                onClick={() => {
+                  router.push("/profile");
+                }}
+                style={{ fontWeight: "bold", cursor: "pointer" }}
+              >
+                Profile
+              </p>
+              <p
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  router.push("/login");
+                  dispatch(reset());
+                }}
+                style={{ fontWeight: "bold", cursor: "pointer" }}
+              >
+                Logout
+              </p>
+            </div>
+          )}
+          {!authState.profileFetched ? (
+            <div
+              onClick={() => {
+                router.push("/login");
+              }}
+              className={styles.loginBtn}
+            >
+              Login
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </nav>
     </div>
   );

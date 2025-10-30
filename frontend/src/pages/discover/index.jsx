@@ -21,7 +21,7 @@ export default function Discover() {
   return (
     <UserLayout>
       <DashboardLayout>
-        <div>
+        <div className={Styles.mainContainer}>
           <h1>Discover</h1>
           <div className={Styles.allUserProfile}>
             {authState.all_profiles_fetched &&

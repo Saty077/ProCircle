@@ -31,7 +31,7 @@
   transition: 0.2s;
 }
 
-.sidebarOptions > svg {
+.sidebarOptions svg {
   max-height: 1.4em;
   min-width: fit-content;
   gap: 1.2em;
@@ -48,4 +48,46 @@
 
 .homeContainer_feedContainer {
   padding-inline: 0.8rem;
+}
+
+.mobileNavbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  max-height: 0.2rem;
+  display: none;
+  justify-content: space-between;
+  padding-inline: 2.2rem;
+  width: 100%;
+  align-items: center;
+  background-color: gray;
+  padding: 2.5rem;
+}
+.mobileNavbar svg {
+  /* height: 2.2rem; */
+  width: 2.2rem;
+  background-color: gray;
+  justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 600px) {
+  .homeContainer_extraContainer {
+    display: none;
+  }
+  .homeContainer {
+    display: block;
+  }
+  .homeContainer_leftBar {
+    display: none;
+  }
+  .mobileNavbar {
+    display: flex;
+  }
+  .mobileNavbar svg {
+    display: flex;
+  }
+
+  .homeContainer_feedContainer {
+    padding-bottom: 10vh;
+  }
 }

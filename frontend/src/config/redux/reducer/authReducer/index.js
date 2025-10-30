@@ -30,7 +30,7 @@ const authSlice = createSlice({
   reducers: {
     reset: () => initialState,
     handleLoginUser: (state) => {
-      state.message = "hello";
+      state.message = "hello"; // tese are reducers, each can have state and action as parameter. and direct mutation is possbile no need for copying prvious values
     },
     emptyMessage: (state) => {
       state.message = "";

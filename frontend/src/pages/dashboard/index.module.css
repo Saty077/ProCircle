@@ -1,14 +1,16 @@
 .scrollComponent {
   display: flex;
   justify-content: center;
+  width: fit-content;
+  padding: 0rem;
 }
 
 .createPostContainer {
   display: flex;
   height: 10svh;
-  width: 70%;
+  width: 500px;
   position: relative;
-  padding-inline: 0.8rem;
+  padding-inline: 1.8rem;
   gap: 1.3rem;
   align-items: center;
   background-color: rgba(8, 96, 123, 0.421);
@@ -152,13 +154,14 @@
 
 .singleOption_optionsContainer > svg {
   height: 100%;
-  width: 10%;
+  width: 16%;
+  min-width: 1rem;
 }
 
 .commentContainer {
   position: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -176,6 +179,7 @@
   border-radius: 10px;
   position: relative;
   padding: 1.4rem;
+  overflow: auto;
 }
 
 .postCommentContainer {
@@ -190,6 +194,8 @@
 }
 
 .postCommentContainer > input {
+  position: fixed;
+  width: 450px;
   flex: 0.9;
   padding-inline: 1.5rem;
   padding-block: 1.2rem;
@@ -199,11 +205,17 @@
   border-radius: 10px;
 }
 
+/* .postCommentContainer > p {
+  position: fixed;
+} */
+
 .postCommentContainer > input:focus {
   border: 1px solid silver;
 }
 
 .postCommentContainer_commentBtn {
+  margin-left: 400px;
+  position: fixed;
   flex: 0.1;
   padding: 1rem;
   cursor: pointer;
@@ -220,3 +232,9 @@
   background-color: green;
   color: white;
 } */
+
+@media only screen and (max-width: 600px) {
+  .allCommentsContainer {
+    width: 70svh;
+  }
+}

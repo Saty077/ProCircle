@@ -11,6 +11,10 @@ import postReducer from "./reducer/postReducer";
  3. Register here -> Reducer
  */
 
+//feature = post, auth
+//reducer = events with action (event(if this action occurs what should reducer do)), state
+// slice = for indivdual features(we have reducer, action logic)
+
 export const store = configureStore({
   reducer: {
     auth: authReducer,

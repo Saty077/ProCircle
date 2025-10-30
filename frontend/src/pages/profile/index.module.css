@@ -5,7 +5,7 @@
 
 .container {
   background: rgb(237, 236, 236);
-  padding: 1.3rem;
+  padding: 0.3rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -169,6 +169,7 @@
 .nameEdit {
   font-weight: bold;
   font-size: 1.5rem;
+  width: fit-content;
 }
 
 .updateProfileBtn {
@@ -193,8 +194,8 @@
 
 .commentContainer {
   position: fixed;
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -215,6 +216,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.3rem;
+  align-items: center;
 }
 
 .inputFields {
@@ -224,4 +226,69 @@
   border-radius: 10px;
   border: 2px solid silver;
   width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .allCommentsContainer {
+    width: 90%;
+    height: 40%;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem;
+  }
+
+  .profileContainer_details_second {
+    flex-direction: column;
+  }
+
+  .childOfDetails_left {
+    width: 200px;
+    flex-direction: column;
+    gap: 0.3px;
+  }
+  .childOfDetails_left p {
+    padding: -1.3rem;
+    margin-right: 4.5rem;
+  }
+
+  .nameEdit {
+    font-weight: bold;
+    font-size: 1.5rem;
+    width: 150px;
+    padding-inline: 2.5rem;
+  }
+
+  .container {
+    padding: 1.9rem;
+  }
+
+  .backdropContainer {
+    width: 100%;
+    height: 15vh;
+    position: relative;
+    background: url("https://images.pexels.com/photos/975771/pexels-photo-975771.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .backdropContainer img {
+    height: 3em;
+    width: 3em;
+
+    border: 1px solid white;
+  }
+
+  .workHistory_card {
+    min-width: fit-content;
+    max-width: 50px;
+    padding-inline: 2.5rem;
+    padding-block: 1rem;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px rgb(71, 71, 71);
+  }
+
+  .container {
+    width: fit-content;
+  }
 }

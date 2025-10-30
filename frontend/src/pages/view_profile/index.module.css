@@ -106,3 +106,35 @@
   width: 1.3em;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .profileContainer_details_second {
+    flex-direction: column;
+  }
+
+  .backdropContainer {
+    width: 100%;
+    height: 15vh;
+    position: relative;
+    background: url("https://images.pexels.com/photos/975771/pexels-photo-975771.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .backdropContainer img {
+    height: 3em;
+    width: 3em;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -25%;
+    left: 1.5%;
+    border: 1px solid white;
+  }
+
+  .container {
+    width: fit-content;
+    padding: 7.8px;
+    padding-bottom: 2.3rem;
+  }
+}
